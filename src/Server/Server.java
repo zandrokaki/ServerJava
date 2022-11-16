@@ -7,10 +7,15 @@ import java.util.HashMap;
 
 
 public class Server {
+    private ArrayList<Socket> clients;
+    private HashMap<Socket, String> clientNameList;
 
-    public static void main(String[] args) {
-        ArrayList<Socket> clients = new ArrayList<>();
-        HashMap<Socket, String> clientNameList = new HashMap<Socket, String>();
+    public Server(){
+        clients = new ArrayList<>();
+        clientNameList = new HashMap<Socket, String>();
+    }
+
+    public void run(){
         try (ServerSocket serversocket = new ServerSocket(8085)) {
             System.out.println("Server is started...");
             while (true) {
@@ -22,6 +27,7 @@ public class Server {
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
-        
     }
+
+
 }
