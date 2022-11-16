@@ -36,11 +36,7 @@ public class DataBase {
         if(!userMap.get(name).getPassword().equals(password))
             throw new RegisterException("E: Password incorrect");
 
-        Random rand = new Random();
-        int r1 = rand.nextInt(1000000);
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(Integer.toString(r1).getBytes(StandardCharsets.UTF_8));
-        String encoded = Base64.getEncoder().encodeToString(hash);
+        String encoded = generateToken();
 
         userMap.get(name).setToken(encoded);
 
@@ -49,5 +45,15 @@ public class DataBase {
 
     public boolean isRegistered(String name){
         return userMap.containsKey(name);
+    }
+
+    private String generateToken() throws NoSuchAlgorithmException{
+        Random rand = new Random();
+        int r1 = rand.nextInt(1000000);
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(Integer.toString(r1).getBytes(StandardCharsets.UTF_8));
+        String encoded = Base64.getEncoder().encodeToString(hash);
+
+        return encoded;
     }
 }

@@ -64,17 +64,20 @@ public class ThreadServer extends Thread {
                 }
             }
         } catch (SocketException e) {
+
             String printMessage = clientNameList.get(socket) + " left the chat room";
             System.out.println(printMessage);
             showMessageToAllClients(socket, printMessage);
             clients.remove(socket);
             clientNameList.remove(socket);
+
         } catch (NoSuchAlgorithmException e) {
             System.out.println("E: It has not been possible to encrypt the message");
         } catch (IOException e1) {
            System.out.println("E: It has not been possible to read the line");
         }
     }
+    
     private void sendMessageToSender(Socket sender, String outputString) throws IOException{
         Socket socket;
         PrintWriter printWriter;

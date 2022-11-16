@@ -9,16 +9,13 @@ public class Main {
         Server server = new Server();
         Logger logger = Logger.getLogger(Server.class.getName());
         
-        server.run();
-      
-        
-
-         /*DataBase db = new DataBase();
+        //server.run();
+        DataBase db = new DataBase();
         db.registerUser("sandro", "123");
         System.out.println( db.logIn("sandro", "123"));
        
 
-       try{
+       /*try{
            
         }catch(Exception e){
             logger.log(Level.INFO, e.getMessage());
