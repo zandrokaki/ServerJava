@@ -23,6 +23,10 @@ public class User {
         return this.token;
     }
 
+    public String getPassword(){
+        return this.password;
+    }
+
     @Override
     public String toString(){
         return "[" + this.name + "]";

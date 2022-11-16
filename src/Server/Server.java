@@ -20,8 +20,9 @@ public class Server {
             System.out.println("Server is started...");
             while (true) {
                 Socket socket = serversocket.accept();
+                DataBase db = new DataBase();
                 clients.add(socket);
-                ThreadServer ThreadServer = new ThreadServer(socket, clients, clientNameList);
+                ThreadServer ThreadServer = new ThreadServer(socket, clients, clientNameList, db);
                 ThreadServer.start();
             }
         } catch (Exception e) {

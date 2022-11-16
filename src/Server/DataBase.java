@@ -2,9 +2,12 @@ package Server;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Random;
+
+import Exceptions.RegisterException;
 
 public class DataBase {
     private HashMap<String, User> userMap;
@@ -17,18 +20,21 @@ public class DataBase {
         return userMap;
     }
 
-    public void registerUser(String name, String password) throws Exception{
+    public void registerUser(String name, String password) throws RegisterException{
 
         if(isRegistered(name))
-            throw new Exception("This user already exists");
+            throw new RegisterException("E: This user already exists");
             
         userMap.put(name, new User(name, password));
     }
 
-    public String logIn(String name, String password) throws Exception{
+    public String logIn(String name, String password) throws RegisterException, NoSuchAlgorithmException{
 
         if(!isRegistered(name))
-            throw new Exception("This user doesn't exist");
+            throw new RegisterException("E: This user doesn't exist");
+
+        if(!userMap.get(name).getPassword().equals(password))
+            throw new RegisterException("E: Password incorrect");
 
         Random rand = new Random();
         int r1 = rand.nextInt(1000000);
@@ -36,8 +42,9 @@ public class DataBase {
         byte[] hash = digest.digest(Integer.toString(r1).getBytes(StandardCharsets.UTF_8));
         String encoded = Base64.getEncoder().encodeToString(hash);
 
-        return encoded;
-        
+        userMap.get(name).setToken(encoded);
+
+        return encoded; 
     }
 
     public boolean isRegistered(String name){
