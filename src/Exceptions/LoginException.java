@@ -8,9 +8,12 @@ package sockets.server;
  *
  * @author omarinmo
  */
-public class RegisterException extends Exception {
-    public RegisterException(String message){
+public class LoginException extends Exception{
+
+    public LoginException(String message) {
         super(message);
     }
+    
+    
     
 }

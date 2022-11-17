@@ -1,36 +1,33 @@
-package Server;
+
+package sockets.server;
+
 
 public class User {
-    private String name;
+    
+    private String user;
     private String password;
     private String token;
-
-    public User(String name, String password){
-        this.name = name;
-        this.password = password;
-        this.token = "";
+    
+    public User (String user, String password){
+        this.user=user;
+        this.password=password;
+        token="";
     }
 
-    public void setToken(String token){
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+    
+    public void setToken(String token) {
         this.token = token;
     }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public String getToken(){
-        return this.token;
-    }
-
-    public String getPassword(){
-        return this.password;
-    }
-
-    @Override
-    public String toString(){
-        return "[" + this.name + "]";
-    }
-
-
+    
 }

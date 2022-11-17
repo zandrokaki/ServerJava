@@ -13,7 +13,7 @@ public class Client {
         reply = sc.nextLine();
         name = reply;
 
-        try (Socket socket = new Socket("localhost", 8085)) {
+        try (Socket socket = new Socket("192.168.3.173", 8085)) {
             PrintWriter cout = new PrintWriter(socket.getOutputStream(), true);
 
             ThreadClient threadClient = new ThreadClient(socket);
