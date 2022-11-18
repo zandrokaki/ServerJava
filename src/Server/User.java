@@ -30,6 +30,7 @@ public class User {
         this.token = token;
     }
 
+    @Override
     public String toString(){
         return "[" + this.user + ", " + this.password + "]";
     }
