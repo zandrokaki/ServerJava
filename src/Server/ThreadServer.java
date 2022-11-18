@@ -1,7 +1,11 @@
-package sockets.server;
+package Server;
 
 import java.io.*;
 import java.util.logging.Logger;
+
+import Exceptions.RegisterException;
+import Exceptions.TokenException;
+
 import java.net.Socket;
 import java.net.SocketException;
 import java.security.NoSuchAlgorithmException;
@@ -40,6 +44,7 @@ public class ThreadServer extends Thread {
                     status=false;
                     
                 }
+                
                 //REG
                 if ((outputString.contains("reg-114101103"))) {
 
@@ -49,6 +54,7 @@ public class ThreadServer extends Thread {
 
                     try {
                         db.registerUser(user, password);
+
                         //TODO GASPAR DICE QUE NO MANDA MENSAJE
                         sendMessageToSender(socket, "reg-114101103" + ":" + "successfull");
                         logger.log(Level.INFO, "" + user + " Has been registered succesfully");

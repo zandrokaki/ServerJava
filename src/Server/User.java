@@ -1,5 +1,5 @@
 
-package sockets.server;
+package Server;
 
 
 public class User {
@@ -28,6 +28,10 @@ public class User {
     
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String toString(){
+        return "[" + this.user + ", " + this.password + "]";
     }
     
 }

@@ -1,5 +1,5 @@
 
-package sockets.server;
+package Server;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -7,9 +7,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Random;
-import sockets.server.RegisterException;
+
+import Exceptions.RegisterException;
+import Exceptions.TokenException;
+
+
 public class DB {
     private HashMap<String, User> userMap;
+
     public DB(){
         userMap = new HashMap<>();
     }
@@ -45,6 +50,6 @@ public class DB {
         if(!isRegistered(name))
             throw new RegisterException("E: This user doesn't exist");
         if(!userMap.get(name).getToken().equals(token))
-            throw new TokenException("E: The token doesn´t match user name");
+            throw new TokenException("E: The token does not match user name");
     }
 }
