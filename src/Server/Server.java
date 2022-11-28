@@ -14,6 +14,8 @@ public class Server {
         ArrayList<Socket> clients = new ArrayList<>();
         HashMap<Socket, String> clientNameList = new HashMap<Socket, String>();
         DB db = new DB();
+
+        
         try (ServerSocket serversocket = new ServerSocket(8085)) {
             System.out.println("Server is started...");
             while (true) {

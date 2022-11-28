@@ -26,6 +26,7 @@ public class ThreadClient implements Runnable {
                 String message = cin.readLine();
                 System.out.println(message);
             }
+            
         } catch (SocketException e) {
             System.out.println("You left the chat-room");
         } catch (IOException exception) {

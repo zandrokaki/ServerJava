@@ -2,10 +2,8 @@ package Server;
 
 import java.io.*;
 import java.util.logging.Logger;
-
 import Exceptions.RegisterException;
 import Exceptions.TokenException;
-
 import java.net.Socket;
 import java.net.SocketException;
 import java.security.NoSuchAlgorithmException;
@@ -33,18 +31,17 @@ public class ThreadServer extends Thread {
 
     @Override
     public void run() {
+
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (true) {
                 String outputString = input.readLine();
                 //LOGOUT
-                System.out.println(outputString);
 
                 if (outputString.contains("out-111117116")) {
                     status=false;
-                    
                 }
-                
+
                 //REG
                 if ((outputString.contains("reg-114101103"))) {
 
@@ -54,8 +51,6 @@ public class ThreadServer extends Thread {
 
                     try {
                         db.registerUser(user, password);
-
-                        //TODO GASPAR DICE QUE NO MANDA MENSAJE
                         sendMessageToSender(socket, "reg-114101103" + ":" + "successfull");
                         logger.log(Level.INFO, "" + user + " Has been registered succesfully");
                     } catch (RegisterException e) {
@@ -63,6 +58,7 @@ public class ThreadServer extends Thread {
                         sendMessageToSender(socket, "reg-114101103" + e.getMessage());
                     }
                 }
+
                 //LOGIN
                 if ((outputString.contains("log-108111103"))) {
                     String user = outputString.split("log-108111103")[1].split("115101112097114097100111114")[0];
@@ -81,8 +77,8 @@ public class ThreadServer extends Thread {
                     }
 
                 }
-                //TOKEN
 
+                //TOKEN
                 if ((outputString.contains("tok-116111107"))) {
                     String token = outputString.split("tok-116111107")[1].split("usr-117115114")[0];
                     String user = outputString.split("usr-117115114")[1].split("mes-109101115")[0];
@@ -97,7 +93,6 @@ public class ThreadServer extends Thread {
                     } catch (TokenException | RegisterException e) {
                         sendMessageToSender(socket, "tok-116111107" + e.getMessage());
                     }
-
                 }
             }
         } catch (SocketException e) {
@@ -109,19 +104,14 @@ public class ThreadServer extends Thread {
         } catch (NoSuchAlgorithmException e) {
             System.out.println("E: It has not been possible to encrypt the message");
         } catch (IOException e1) {
-            System.out.println("E: It has not been possible to read the line");
+            System.out.println("E: It has not been possible to open the file");
         }
 
     }
 
     private void sendMessageToSender(Socket sender, String outputString) throws IOException, NoSuchAlgorithmException {
         PrintWriter printWriter = new PrintWriter(sender.getOutputStream(), true);
-        if (printWriter == null) {
-            throw new IOException("E: Message not found");
-
-        }
         printWriter.println(outputString);
-
     }
 
     private void showMessageToAllClients(Socket sender, String outputString) {
